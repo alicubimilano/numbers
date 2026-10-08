@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Pari o Dispari? · Alice V6</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <div id="tint" class="tint"></div>
+
+  <div id="pauseOverlay" class="overlay hidden">
+    <div class="modalCard">
+      <h1>PAUSA</h1>
+      <p>Il tempo interno è fermo.</p>
+      <button id="resumeBtn" class="primary">RIPRENDI</button>
+    </div>
+  </div>
+
+  <div id="magic67" class="overlay magic hidden" aria-hidden="true">
+    <div class="magicCard">
+      <div class="magicStars">✦ ✨ ✦ ✨ ✦</div>
+      <div class="magicNumber">67</div>
+      <div class="magicText">IL NUMERO MAGICO!</div>
+      <div class="magicStars">✨ ✦ ✨ ✦ ✨</div>
+    </div>
+  </div>
+
+  <main id="app"></main>
+
+  <script src="app.js"></script>
+</body>
+</html>
