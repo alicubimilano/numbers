@@ -1,26 +1,31 @@
 /**
  * Backend dati - Pari o Dispari? V6
  * Google Apps Script Web App -> Google Sheet centrale.
+ *
+ * Questa versione apre direttamente il foglio dati tramite ID:
+ * non usa DriveApp e non deve cercare file per nome.
  */
-const DATA_FILE_NAME = "ALICE - DATI GIOCHI MATEMATICA";
+const SPREADSHEET_ID = "1rAbHoS56VEvOna4huxBcCvp7ASLJ7C5f75AXbo_D3Bw";
 const SHEET_NAME = "EVENTI";
 const EXPECTED_SOURCE = "numbersPRV-pari-dispari-v6";
 
 function doPost(e) {
   try {
     const body = JSON.parse((e && e.postData && e.postData.contents) || "{}");
-    if (body.source !== EXPECTED_SOURCE) return json_({ok:false, error:"source_not_allowed"});
+    if (body.source !== EXPECTED_SOURCE) {
+      return json_({ok:false, error:"source_not_allowed"});
+    }
 
     const events = Array.isArray(body.events) ? body.events : [];
     if (!events.length) return json_({ok:true, inserted:0});
 
-    // Protezione ridondante: TEST non viene mai archiviato.
+    // TEST non viene mai archiviato.
     const clean = events.filter(ev =>
       String(ev.player || "").trim().toLowerCase() !== "test"
     );
     if (!clean.length) return json_({ok:true, inserted:0});
 
-    const ss = openDataSpreadsheet_();
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     let sh = ss.getSheetByName(SHEET_NAME);
     if (!sh) {
       sh = ss.insertSheet(SHEET_NAME);
@@ -55,14 +60,13 @@ function doPost(e) {
   }
 }
 
-function openDataSpreadsheet_() {
-  const files = DriveApp.getFilesByName(DATA_FILE_NAME);
-  if (!files.hasNext()) throw new Error("Data spreadsheet not found: " + DATA_FILE_NAME);
-  return SpreadsheetApp.openById(files.next().getId());
-}
-
 function doGet() {
-  return json_({ok:true, service:"Alice game telemetry", version:"v6"});
+  return json_({
+    ok:true,
+    service:"Alice game telemetry",
+    version:"v6",
+    spreadsheetId:SPREADSHEET_ID
+  });
 }
 
 function json_(obj) {
