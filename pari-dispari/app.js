@@ -82,8 +82,20 @@
     const q=load(STORE.sync,[]);q.push(ev);save(STORE.sync,q);
     flushSync();
   }
+  function backendUrl(){
+    const params=new URLSearchParams(window.location.search);
+    const oneTime=params.get("backend");
+    if(oneTime && /^https:\/\//i.test(oneTime)){
+      localStorage.setItem("pdAlice_backend_url",oneTime.trim());
+      params.delete("backend");
+      const next=window.location.pathname+(params.toString()?"?"+params.toString():"")+window.location.hash;
+      window.history.replaceState({},"",next);
+    }
+    return (window.ALICE_BACKEND_URL||localStorage.getItem("pdAlice_backend_url")||"").trim();
+  }
+
   async function flushSync(){
-    const url=(window.ALICE_BACKEND_URL||"").trim();
+    const url=backendUrl();
     if(!url||isTestPlayer())return;
     const batch=load(STORE.sync,[]);
     if(!batch.length)return;
