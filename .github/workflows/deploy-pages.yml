@@ -1,0 +1,52 @@
+name: Deploy Pari o Dispari to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "pari-dispari/index.html"
+      - "pari-dispari/app.js"
+      - "pari-dispari/styles.css"
+      - "pari-dispari/config.js"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare public site
+        run: |
+          mkdir -p _site
+          cp pari-dispari/index.html _site/
+          cp pari-dispari/app.js _site/
+          cp pari-dispari/styles.css _site/
+          cp pari-dispari/config.js _site/
+          touch _site/.nojekyll
+
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
