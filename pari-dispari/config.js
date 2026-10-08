@@ -1,4 +1,2 @@
-// Quando avremo un endpoint centrale, inserire qui l'URL.
-// Esempio: window.ALICE_BACKEND_URL = "https://script.google.com/macros/s/.../exec";
-window.ALICE_BACKEND_URL = window.ALICE_BACKEND_URL || "";
-// deploy trigger v6
+// Endpoint centrale del gioco Pari o Dispari? V6
+window.ALICE_BACKEND_URL = "https://script.google.com/macros/s/AKfycbxrmmsQ7E53sHRD_SqMr5kI9vqiaEjguFiGQ9fJIxQ2nN1DME2jjTjcjdlPHjR_wJd2/exec";
