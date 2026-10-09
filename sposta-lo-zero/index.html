@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#20384a" />
+  <title>Sposta lo zero!</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app-shell" id="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Gioco matematico digitale</p>
+        <h1>Sposta lo zero!</h1>
+        <p class="subtitle">Ordina le cifre. Sposta lo zero. Guarda come cambia il valore.</p>
+      </div>
+      <div class="zero-mark" aria-hidden="true">0</div>
+    </header>
+
+    <section class="control-panel" aria-label="Impostazioni di gioco">
+      <label>
+        Livello
+        <select id="difficulty">
+          <option value="base">Base</option>
+          <option value="medio" selected>Medio</option>
+          <option value="avanzato">Avanzato</option>
+        </select>
+      </label>
+      <label>
+        Carte grigie
+        <select id="digitCount">
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </label>
+      <div class="mode-buttons" role="group" aria-label="Modalità">
+        <button type="button" class="mode-button is-active" data-mode="training" aria-pressed="true">Allenamento</button>
+        <button type="button" class="mode-button" data-mode="sprint" aria-pressed="false">Sprint 60s</button>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Punteggio">
+      <div><span>Punti</span><strong id="score">0</strong></div>
+      <div><span>Serie</span><strong id="streak">0</strong></div>
+      <div><span>Tempo</span><strong id="timer">∞</strong></div>
+    </section>
+
+    <section class="challenge-card">
+      <div class="challenge-meta">
+        <span id="phaseLabel">Sfida</span>
+        <button type="button" id="newChallenge" class="secondary-button">Nuova sfida</button>
+      </div>
+      <p id="challengeText" class="challenge-text" aria-live="polite"></p>
+    </section>
+
+    <section class="play-area">
+      <div class="play-heading">
+        <div>
+          <p class="section-label">Carte disponibili</p>
+          <p class="small-note">Tocca una carta per inserirla nel numero.</p>
+        </div>
+        <button type="button" id="togglePlaces" class="text-button">Mostra valore posizionale</button>
+      </div>
+
+      <div id="hand" class="hand" aria-label="Carte disponibili"></div>
+
+      <div class="number-zone">
+        <p class="section-label">Il tuo numero</p>
+        <div id="answerSlots" class="answer-slots" aria-label="Numero composto"></div>
+        <div id="placeLabels" class="place-labels is-hidden"></div>
+        <div id="numberReadout" class="number-readout">—</div>
+      </div>
+
+      <div id="transformZone" class="transform-zone is-hidden"></div>
+    </section>
+
+    <section class="actions" aria-label="Azioni">
+      <button type="button" id="undoButton" class="secondary-button">Indietro</button>
+      <button type="button" id="resetButton" class="secondary-button">Azzera</button>
+      <button type="button" id="checkButton" class="primary-button">Controlla</button>
+      <button type="button" id="hintButton" class="secondary-button">Aiuto</button>
+    </section>
+
+    <section id="feedback" class="feedback is-hidden" aria-live="polite"></section>
+
+    <section class="concept-card">
+      <h2>Perché funziona?</h2>
+      <p>La stessa cifra cambia valore in base alla posizione. Lo zero può quindi cambiare molto il numero anche se, da solo, vale zero.</p>
+    </section>
+
+    <footer>
+      <p>Prototipo digitale per test didattico. Implementazione originale in HTML, CSS e JavaScript, senza dipendenze esterne.</p>
+    </footer>
+  </main>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

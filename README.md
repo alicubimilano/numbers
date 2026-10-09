@@ -9,6 +9,15 @@ Primo gioco disponibile. Lavora sul riconoscimento visivo delle quantità, sul c
 
 Sorgenti: `pari-dispari/`
 
+### Sposta lo zero! — V1
+Gioco autonomo sul valore posizionale, sull’ordinamento delle cifre e sull’inserimento o sostituzione dello zero. Prototipo da testare con Alice.
+
+Sorgenti: `sposta-lo-zero/`
+
+Gioco: https://alicubimilano.github.io/numbers/sposta-lo-zero/
+
+Checkpoint: `sposta-lo-zero/CHECKPOINT_V1.md`
+
 ### In progettazione
 - **Il gioco del 10**
 - **Il Ponte delle equazioni**

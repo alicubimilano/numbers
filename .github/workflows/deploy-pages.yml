@@ -1,4 +1,4 @@
-name: Deploy Pari o Dispari to GitHub Pages
+name: Deploy Numbers to GitHub Pages
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
       - "pari-dispari/app.js"
       - "pari-dispari/styles.css"
       - "pari-dispari/config.js"
+      - "sposta-lo-zero/**"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
@@ -42,6 +43,9 @@ jobs:
           cp pari-dispari/app.js _site/
           cp pari-dispari/styles.css _site/
           cp pari-dispari/config.js _site/
+          mkdir -p _site/sposta-lo-zero
+          cp sposta-lo-zero/index.html sposta-lo-zero/styles.css _site/sposta-lo-zero/
+          cp -R sposta-lo-zero/src sposta-lo-zero/tests _site/sposta-lo-zero/
           touch _site/.nojekyll
 
       - name: Upload static site
